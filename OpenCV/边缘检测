@@ -1,0 +1,28 @@
+import cv2 as cv
+import numpy as np
+import matplotlib.pyplot as plt
+
+img=cv.imread("C:\\Users\\ASUS\\Desktop\\111.png",0)
+
+#Sobel算子
+
+x=cv.Sobel(img,cv.CV_16S,1,0)
+y=cv.Sobel(img,cv.CV_16S,0,1)
+abs_x=cv.convertScaleAbs(x)
+abs_y=cv.convertScaleAbs(y)
+result1=cv.addWeighted(abs_x,0.5,abs_y,0.5,0)
+
+#lapacion算子
+
+Laplacion=cv.Laplacian(img,cv.CV_16S)
+result2=cv.convertScaleAbs(Laplacion)
+
+#Canny算子，最优
+
+Canny=cv.Canny(img,0,100)
+#结果展示
+cv.imshow('Sobel',result1)
+cv.imshow('Lapacion',result2)
+cv.imshow('Canny',Canny)
+cv.waitKey(0)
+cv.destroyAllWindows()

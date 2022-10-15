@@ -1,0 +1,75 @@
+import matplotlib.pyplot as plt
+import numpy as np
+def Line_chart(x,y):#折线图
+
+    plt.rcParams['font.family'] = ['SimHei']  # 解决中文显示
+    # plt.figure(figsize=(10,10),dpi=100)#figsize为图片大小，这里是1000×1000,dpi为缩放
+    # plt.figure()#添加一个窗口
+    fig, ax = plt.subplots()  # 绘制画布窗口，需要一张图上显示几张统计图，就要加221等#返回一个包含figure和axes对象的元组
+    """添加基本信息"""
+    plt.title('折线图', fontsize=24)  # 设置标题名称，fontsize意思为字号大小
+    plt.xlabel('x')  # 设置x轴名称
+    plt.ylabel('y')  # 设置y轴名称
+    plt.grid(True, linestyle='--', alpha=0.5)  # 添加网格，线型可以为-- - -. : ''
+    # plt.xticks(x[::10])#添加刻度，每个刻度间隔10
+    # plt.yticks(y[::10])
+    # ax.tick_params(direction='out', length=6, width=2, colors='r',grid_color='r', grid_alpha=0.5)
+
+    line1=ax.plot(x, y, "RED",linewidth=2.0)#颜色，线宽#可添加多个plot,
+    plt.legend(handles=line1, labels=("正弦函数",), loc="lower left", fontsize=10)#添加图例，loc参数指定图例的位置，fontsize参数指定标签的字体大小，如果有多个图例，那么handles参数列表和labels参数列表均设置为列表格式。
+    plt.show()
+
+def Scatter_plot(x,y):#散点图
+
+    plt.rcParams['font.family'] = ['SimHei']  # 解决中文显示
+    # plt.figure(figsize=(10,10),dpi=100)#figsize为图片大小，这里是1000×1000,dpi为缩放
+    # plt.figure()#添加一个窗口
+    fig, ax = plt.subplots()  # 绘制画布窗口，需要一张图上显示几张统计图，就要加221等#返回一个包含figure和axes对象的元组
+    """添加基本信息"""
+    plt.title('折线图', fontsize=24)  # 设置标题名称，fontsize意思为字号大小
+    plt.xlabel('x')  # 设置x轴名称
+    plt.ylabel('y')  # 设置y轴名称
+    plt.grid(True, linestyle='--', alpha=0.5)  # 添加网格，线型可以为-- - -. : ''
+    # plt.xticks(x[::10])#添加刻度，每个刻度间隔10
+    # plt.yticks(y[::10])
+    # ax.tick_params(direction='out', length=6, width=2, colors='r',grid_color='r', grid_alpha=0.5)
+
+    plt.scatter(x,y)
+    plt.show()
+
+def histogram(x,y):#直方图
+    plt.hist(y, bins=20, color='steelblue')#bin为直方图宽度，值越大，宽度越小
+    plt.hist(y, bins=30, color='red')
+    plt.show()
+
+def Pie_chart(y): #饼状图
+    # plt.pie(x, explode=None, labels=None, colors=None, autopct=None, pctdistance=0.6, shadow=False,
+    #                       labeldistance=1.1, startangle=0, radius=1, counterclock=True, wedgeprops=None, textprops=None,
+    #                       center=0, 0, frame=False, rotatelabels=False, *, normalize=None, data=None)[source]
+    # x：浮点型数组，表示每个扇形的面积。
+    # explode：数组，表示各个扇形之间的间隔，默认值为0。
+    # labels：列表，各个扇形的标签，默认值为None。
+    # colors：数组，表示各个扇形的颜色，默认值为None。
+    # autopct：设置饼图内各个扇形百分比显示格式， % d % % 整数百分比， % 0.1f一位小数， % 0.1f % % 一位小数百分比， % 0.2f % % 两位小数百分比。
+    # labeldistance：标签标记的绘制位置，相对于半径的比例，默认值为 1.1，如 < 1则绘制在饼图内侧。
+    # pctdistance：：类似于labeldistance，指定autopct的位置刻度，默认值为0.6。
+    # shadow：：布尔值True或False，设置饼图的阴影，默认为False，不设置阴影。
+    # radius：：设置饼图的半径，默认为 1。
+    # startangle：：起始绘制饼图的角度，默认为从x轴正方向逆时针画起，如设定 = 90则从y轴正方向画起。
+    #counterclock：布尔值，设置指针方向，默认为True，即逆时针，False为顺时针。
+    # wedgeprops ：字典类型，默认值None。参数字典传递给wedge对象用来画一个饼图。例如：wedgeprops = {'linewidth': 5}设置wedge线宽为5。
+    # textprops ：字典类型，默认值为：None。传递给text对象的字典参数，用于设置标签（labels）和比例文字的格式。
+    # center ：浮点类型的列表，默认值：(0, 0)。用于设置图标中心位置。
+    # frame ：布尔类型，默认值：False。如果是True，绘制带有表的轴框架。
+    # rotatelabels ：布尔类型，默认为False。如果为True，旋转每个label:到指定的角度。
+    plt.pie(y)
+    plt.show()
+
+#箱型图
+
+x=np.linspace(0, 10, 100)
+y=4 + 2 * np.sin(2 * x)
+Line_chart(x,y)
+#Scatter_plot(x,y)
+#histogram(x,y)
+Pie_chart(y)

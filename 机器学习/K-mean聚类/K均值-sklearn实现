@@ -1,0 +1,61 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from numpy import random
+from sklearn.cluster import KMeans
+
+from scipy.spatial.distance import cdist
+
+
+def kmeans(X,k):
+
+
+    """训练模型"""
+    kemans = KMeans(n_clusters=k)#分为2类
+    result = kemans.fit_predict(X)  # 训练及预测
+    print(result)  # 分类结果
+    """初始化"""
+    i=0
+    kind1=np.array([])
+    kind2=np.array([])
+    while(i<len(X)):#2个类两个if
+        if result[i]==1:
+            print(i)
+            kind1=np.append(kind1,i)
+        elif result[i]==0:
+            kind2=np.append(kind2,i)
+        i=i+1
+    """画图"""
+    plt.figure()
+    for a in kind1:#2个类两个循环
+        plt.scatter(X[int(a)][0], X[int(a)][1],color='red')
+    for b in kind2:
+        plt.scatter(X[int(b)][0], X[int(b)][1],color='blue')
+    plt.show()
+def kmean_(X):#肘部发选择k值
+    #如果K值未知，可采用肘部法选择K值
+    #假设最大分类数为K类，K为样本数量。分别计算分类结果为1-K类的平均离差，离差的提升变化下降最抖时的值为最优聚类数K
+    K = range(1, 7)
+    meanDispersions = []
+    for k in K:
+        kemans = KMeans(n_clusters=k)
+        kemans.fit(X)#将训练数据在模型中训练一定次数，返回返回一个History的对象:loss和测量指标
+        # 计算平均离差
+        m_Disp = sum(np.min(cdist(X, kemans.cluster_centers_, 'euclidean'), axis=1)) / X.shape[0]
+        meanDispersions.append(m_Disp)
+
+    plt.rcParams['font.family'] = ['sans-serif']
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 使折线图显示中文
+
+    plt.plot(K, meanDispersions, 'bx-')
+    plt.xlabel('k')
+    plt.ylabel('平均离差')
+    plt.title('用肘部方法选择K值')
+    plt.show()
+
+
+X=np.array([[0,2],[0,0],[1,0],[5,0],[5,2],[3,2],[6,2]])#注意数组的形式
+
+kmean_(X)
+
+k=2
+kmeans(X,k)

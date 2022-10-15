@@ -1,0 +1,14 @@
+import cv2 as cv
+import numpy as np
+import matplotlib.pyplot
+img=cv.imread('C:\\Users\\ASUS\\Desktop\\222.jpg',1)
+#kernel=np.ones((5*5),np.uint8)
+cv.imshow('show',img)#显示原图像
+img1=cv.blur(img,(5,5))
+img2=cv.GaussianBlur(img,(5,5),1)
+img3=cv.medianBlur(img,5)#这里的核大小为整数
+cv.imshow('show1',img1)#显示均值滤波
+cv.imshow("show2",img2)#显示高斯滤波
+cv.imshow('show3',img3)#显示中值滤波
+cv.waitKey(0)
+cv.destroyAllWindows()

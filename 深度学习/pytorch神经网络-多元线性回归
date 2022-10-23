@@ -1,0 +1,60 @@
+import numpy as np
+import math
+import matplotlib.pyplot as plt
+
+def Scatter_plot(x,y):#散点图
+
+    plt.rcParams['font.family'] = ['SimHei']  # 解决中文显示
+    # plt.figure(figsize=(10,10),dpi=100)#figsize为图片大小，这里是1000×1000,dpi为缩放
+    # plt.figure()#添加一个窗口
+    fig, ax = plt.subplots()  # 绘制画布窗口，需要一张图上显示几张统计图，就要加221等#返回一个包含figure和axes对象的元组
+    """添加基本信息"""
+    plt.title('折线图', fontsize=24)  # 设置标题名称，fontsize意思为字号大小
+    plt.xlabel('x')  # 设置x轴名称
+    plt.ylabel('y')  # 设置y轴名称
+    plt.grid(True, linestyle='--', alpha=0.5)  # 添加网格，线型可以为-- - -. : ''
+    # plt.xticks(x[::10])#添加刻度，每个刻度间隔10
+    # plt.yticks(y[::10])
+    # ax.tick_params(direction='out', length=6, width=2, colors='r',grid_color='r', grid_alpha=0.5)
+
+    plt.scatter(x,y)
+    plt.show()
+
+# 创建随机的输入与输出
+x = np.linspace(-math.pi, math.pi, 2000)#生成（-π，π）的一个序列，步长为2000
+y = np.sin(x)
+Scatter_plot(x,y)
+
+# 随机初始化权重
+a = np.random.randn()#生成一个0到1的数，参数可以指定几行几列
+b = np.random.randn()
+c = np.random.randn()
+d = np.random.randn()
+
+learning_rate = 1e-6#学习率
+
+for t in range(2000):#同np.linspace,生成一个列表
+    # 正向传播，预测y值
+    # y = a + b x + c x^2 + d x^3
+    y_pred = a + b * x + c * x ** 2 + d * x ** 3
+
+
+    # 计算预测y值
+    loss = np.square(y_pred - y).sum()#square是计算平方   .sum（）是求和
+    if t % 100 == 99:
+        print(t, loss)
+
+    # 反向拟合计算，计算a,b,c,d相对于损耗的梯度
+    grad_y_pred = 2.0 * (y_pred - y)
+    grad_a = grad_y_pred.sum()
+    grad_b = (grad_y_pred * x).sum()
+    grad_c = (grad_y_pred * x ** 2).sum()
+    grad_d = (grad_y_pred * x ** 3).sum()
+
+    # 更新权重
+    a -= learning_rate * grad_a
+    b -= learning_rate * grad_b
+    c -= learning_rate * grad_c
+    d -= learning_rate * grad_d
+
+print(f'Result: y = {a} + {b} x + {c} x^2 + {d} x^3')
